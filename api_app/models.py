@@ -1,10 +1,21 @@
 from django.db import models
+import datetime
+from django.core.validators import MaxValueValidator
+
+
+def current_year():
+    return datetime.date.today().year
+
+
+def max_value_current_year(value):
+    return MaxValueValidator(current_year())(value)
 
 
 class CarModel(models.Model):
     manufacturer = models.CharField(max_length=50)
     model_name = models.CharField(max_length=50)
-    year_production = models.DateField()
+    year_production = models.PositiveIntegerField(
+        default=current_year(), validators=[max_value_current_year])
 
     def __str__(self):
         return "Manufacturer: {0}, Model: {1}, Yesr in production: {2}" \

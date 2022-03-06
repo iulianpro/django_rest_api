@@ -1,7 +1,7 @@
 from django.urls import path
-from .views import Api, NoApi
+from .views import GetApi, PostApi
 
 urlpatterns = [
-    path('api/', NoApi.as_view()),
-    path('api/<id>', Api.as_view()),
+    path('api/', PostApi.as_view()),
+    path('api/<id>', GetApi.as_view()),
 ]
